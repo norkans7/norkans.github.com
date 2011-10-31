@@ -7,7 +7,7 @@
 <!--[if IE]><script src="scripts/excanvas.js"></script><![endif]-->
 <script>
 // the size of our canvas, it is square
-var CANVAS_SIZE = 600;
+var CANVAS_SIZE = 800;
 
 // the radius of the ball we are drawing
 var RADIUS = 25;
@@ -134,7 +134,7 @@ $(function(){
 <script type="text/javascript">
 		var canvas, ctx;
 		var particles = [];
-		var NUM_PARTICLES = 200;
+		var NUM_PARTICLES = 400;
 
 		function Particle() {
 			this.x = Math.random() * canvas.width;
@@ -162,9 +162,43 @@ $(function(){
 		function loop() {
 			//ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-			for(var i = 0; i < NUM_PARTICLES; i++) {
+			for(var i = 0; i < 100; i++) {
+				particles[i].update();
+				
+				ctx.fillStyle = '#ffff00';
+				ctx.beginPath();
+				ctx.moveTo(particles[i].x, particles[i].y);
+				ctx.lineTo(particles[i].x - particles[i].xvel,
+									 particles[i].y - particles[i].yvel);
+				ctx.stroke();
+				ctx.closePath();
+			}
+			for(var i = 100; i < 200; i++) {
 				particles[i].update();
 
+				ctx.fillStyle = '#00980e';
+				ctx.beginPath();
+				ctx.moveTo(particles[i].x, particles[i].y);
+				ctx.lineTo(particles[i].x - particles[i].xvel,
+									 particles[i].y - particles[i].yvel);
+				ctx.stroke();
+				ctx.closePath();
+			}
+			for(var i = 200; i < NUM_PARTICLES; i++) {
+				particles[i].update();
+
+				ctx.fillStyle = '#fb0808';
+				ctx.beginPath();
+				ctx.moveTo(particles[i].x, particles[i].y);
+				ctx.lineTo(particles[i].x - particles[i].xvel,
+									 particles[i].y - particles[i].yvel);
+				ctx.stroke();
+				ctx.closePath();
+			}
+			for(var i = 300; i < NUM_PARTICLES; i++) {
+				particles[i].update();
+
+				ctx.fillStyle = '#000000';
 				ctx.beginPath();
 				ctx.moveTo(particles[i].x, particles[i].y);
 				ctx.lineTo(particles[i].x - particles[i].xvel,
@@ -206,7 +240,7 @@ $(function(){
 <table>
 <tbody><tr>
   <td >
-  <canvas id="canvas" width="600" height="600" style="border: 2px solid black;" >
+  <canvas id="canvas" width="800" height="800" style="border: 2px solid black;" >
   </canvas>
   </td>
   
