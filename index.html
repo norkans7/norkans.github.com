@@ -7,7 +7,7 @@
 <!--[if IE]><script src="scripts/excanvas.js"></script><![endif]-->
 <script>
 // the size of our canvas, it is square
-var CANVAS_SIZE = 800;
+var CANVAS_SIZE = 750;
 
 // the radius of the ball we are drawing
 var RADIUS = 25;
@@ -51,13 +51,15 @@ function draw(){
 	//pen.fillRect(0,0, CANVAS_SIZE, CANVAS_SIZE);
 	//pen.drawImage(img,0,0,100,100);
 	pen.fillStyle = '#395a3d';
+	pen.strokeStyle = "#ffffff";
     pen.beginPath();
     pen.arc(ball_x, ball_y, RADIUS, 0, 2*Math.PI, false);
 	//pen.stroke();
+	pen.stroke();
 	pen.fill();
 	pen.fillStyle = '#092a49';
 	
-	pen.strokeStyle = "#ffff00";
+	pen.strokeStyle = "#ffffff";
 	pen.beginPath();
     pen.arc(ball1_x, ball1_y, RADIUS, 0, 2*Math.PI, false);
 	pen.stroke();
@@ -240,7 +242,7 @@ $(function(){
 <table>
 <tbody><tr>
   <td >
-  <canvas id="canvas" width="800" height="800" style="border: 2px solid black;" >
+  <canvas id="canvas" width="750" height="750" style="border: 2px solid black;" >
   </canvas>
   </td>
   
