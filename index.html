@@ -165,7 +165,7 @@ $(function(){
 			for(var i = 0; i < 100; i++) {
 				particles[i].update();
 				
-				ctx.fillStyle = '#ffff00';
+				ctx.strokeStyle = '#ffff00';
 				ctx.beginPath();
 				ctx.moveTo(particles[i].x, particles[i].y);
 				ctx.lineTo(particles[i].x - particles[i].xvel,
@@ -176,7 +176,7 @@ $(function(){
 			for(var i = 100; i < 200; i++) {
 				particles[i].update();
 
-				ctx.fillStyle = '#00980e';
+				ctx.strokeStyle = '#00980e';
 				ctx.beginPath();
 				ctx.moveTo(particles[i].x, particles[i].y);
 				ctx.lineTo(particles[i].x - particles[i].xvel,
@@ -187,7 +187,7 @@ $(function(){
 			for(var i = 200; i < NUM_PARTICLES; i++) {
 				particles[i].update();
 
-				ctx.fillStyle = '#fb0808';
+				ctx.strokeStyle = '#fb0808';
 				ctx.beginPath();
 				ctx.moveTo(particles[i].x, particles[i].y);
 				ctx.lineTo(particles[i].x - particles[i].xvel,
@@ -198,7 +198,7 @@ $(function(){
 			for(var i = 300; i < NUM_PARTICLES; i++) {
 				particles[i].update();
 
-				ctx.fillStyle = '#000000';
+				ctx.strokeStyle = '#000000';
 				ctx.beginPath();
 				ctx.moveTo(particles[i].x, particles[i].y);
 				ctx.lineTo(particles[i].x - particles[i].xvel,
