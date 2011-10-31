@@ -177,7 +177,7 @@ $(function(){
 		}
 
 		function load() {
-			canvas = document.getElementById("cv");
+			canvas = document.getElementById("canvas");
 			ctx = canvas.getContext("2d");
 
 			for(var i = 0; i < NUM_PARTICLES; i++) {
@@ -189,10 +189,19 @@ $(function(){
 			loop();
 		}
 	</script>
+	
+	<style>
+		
+
+		canvas {
+			color: black
+			border:2px solid #444;
+		}
+	</style>
 
 </head>
  
-<body>
+<body onload="load();">
 
 <table>
 <tbody><tr>
