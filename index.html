@@ -6,18 +6,156 @@ title: Norkans Online
 Welcome!
 
 <!DOCTYPE html>
-<html>
-<head>
-<title> </title>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=us-ascii">
+    <title>GFX Challenge 1</title>
+
+<script type="text/javascript" src="challenge1_files/jquery.js"></script>
+<!--[if IE]><script src="excanvas.js"></script><![endif]-->
+<script>
+// the size of our canvas, it is square
+var CANVAS_SIZE = 600;
+
+// the radius of the ball we are drawing
+var RADIUS = 25;
+
+// our starting positions
+var START_X = randomFromTo(RADIUS,CANVAS_SIZE);
+var START_Y = randomFromTo(RADIUS,CANVAS_SIZE);
+var START_X1 = randomFromTo(RADIUS,CANVAS_SIZE);
+var START_Y1 = randomFromTo(RADIUS,CANVAS_SIZE);
+// the current location of our ball
+var ball_x = START_X;
+var ball_y = START_Y;
+var ball1_x = START_X1;
+var ball1_y = START_Y1;
+// the movement increment for our ball, it's speed on each axis
+var inc_x = 4;
+var inc_y = 2;
+
+var inc_x1 = 6;
+var inc_y1 = 5;
+
+function randomFromTo(from, to){
+       return Math.floor(Math.random() * (to - from + 1) + from);
+    }
+ 
+// this function is responsible for drawing our canvas element
+function draw(){
+    // this just sets up our Javascript canvas to be drawn to
+    var canvas = document.getElementById("canvas");  
+    var pen = canvas.getContext("2d");
+	var img = new Image ();
+	img.src = 'images/norkans.jpg';
+	
+	//document.body.background= 'challenge1_files/Desert.jpg';
+    // we clear the canvas, removing what has already been drawn
+    pen.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+
+	pen.drawImage(img,0,0,CANVAS_SIZE, CANVAS_SIZE);
+    // then we draw the ball
+	pen.fillStyle = '#FD0';
+	//pen.fillRect(0,0, CANVAS_SIZE, CANVAS_SIZE);
+	//pen.drawImage(img,0,0,100,100);
+	pen.fillStyle = '#00B000';
+    pen.beginPath();
+    pen.arc(ball_x, ball_y, RADIUS, 0, 2*Math.PI, false);
+	//pen.stroke();
+	pen.fill();
+	pen.fillStyle = '#234263';
+	
+	pen.strokeStyle = "red";
+	pen.beginPath();
+    pen.arc(ball1_x, ball1_y, RADIUS, 0, 2*Math.PI, false);
+	pen.stroke();
+	pen.fill();
+}
+
+function updateDebug(){
+  // update our HTML debugging elements
+  $("#ball_x").text(ball_x);
+  $("#ball_y").text(ball_y);
+  $("#inc_x").text(inc_x);
+  $("#inc_y").text(inc_y);
+  $("#canvas_width").text(CANVAS_SIZE);
+  $("#canvas_height").text(CANVAS_SIZE);
+}
+
+// this function is called 40 times a second and has two jobs
+//   1) to increment our board, that is, to move our ball or do other operations 
+//      having to do with animation
+//   2) to trigger the Canvas element to be redrawn by calling the draw() function
+//      above
+//
+function tick(){
+  // we simply increment the position of the ball based on our initial speed
+
+  // TODO: Can you change this logic to make the ball bounce off the sides of
+  // the screen?
+  ball_x += inc_x;
+  ball_y += inc_y;
+  
+  ball1_x += inc_x1;
+  ball1_y += inc_y1;
+  
+  if (ball_x <= RADIUS | ball_x >= CANVAS_SIZE - RADIUS )
+  {inc_x = inc_x * (-1);
+  }
+  if(ball_y <= RADIUS | ball_y >= CANVAS_SIZE - RADIUS)
+  {inc_y = inc_y *(-1);
+  }
+  
+  if (ball1_x <= RADIUS | ball1_x >= CANVAS_SIZE - RADIUS)
+  {inc_x1 = inc_x1 * (-1);
+  }
+  if(ball1_y <= RADIUS | ball1_y >= CANVAS_SIZE - RADIUS)
+  {inc_y1 = inc_y1 *(-1);
+  }
+  if ((Math.pow((ball_x-ball1_x),2)+Math.pow((ball_y-ball1_y),2)) <= 4*RADIUS*RADIUS)
+  {
+    
+  inc_x = inc_x * (-1) + inc_x1 *(-1);
+  inc_y = inc_y * (-1) + inc_y1 *(-1);
+  inc_x1 = inc_x * (-1) + inc_x1 *(-1);
+  inc_y1 = inc_y * (-1) + inc_y1 *(-1);
+  
+  }
+  draw();
+
+  updateDebug();
+
+  setTimeout("tick()", 25);
+}
+
+// just resets our ball position to the start
+function reset(){
+  ball_x = START_X;
+  ball_y = START_Y;
+}
+
+$(function(){
+  setTimeout("tick()", 25);
+});
+</script>
 </head>
  
 <body>
-<h1> </h1>
-<p>
-<img src="images/N7.jpg" alt="Norkans 7 Online" />
-<img src="images/N7.jpg" alt="Norkans 7 Online" />
-<img src="images/N7.jpg" alt="Norkans 7 Online" />
-<p/>
-</body>
-</html>
 
+<table>
+<tbody><tr>
+  <td >
+  <canvas id="canvas" width="600" height="600" style="border: 2px solid black;" >
+  </canvas>
+  </td>
+  
+  </tr>
+</tbody></table>
+
+<p><button onclick="reset()">Reset</button>
+</p>
+
+
+
+  
+
+</body></html>
