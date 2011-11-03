@@ -1,7 +1,7 @@
 	<!DOCTYPE html>
 	<html><head>
 	<meta http-equiv="content-type" content="text/html; charset=us-ascii">
-		<title>N7</title>
+		<title>N7 challenge 1 Solution</title>
 
 	<script type="text/javascript" src="scripts/jquery.js"></script>
 	<!--[if IE]><script src="scripts/excanvas.js"></script><![endif]-->
@@ -13,24 +13,26 @@
 	var RADIUS = 25;
 
 	// our starting positions
-	var START_X = randomFromTo((RADIUS+1),CANVAS_SIZE);
-	var START_Y = randomFromTo((RADIUS+1),CANVAS_SIZE);
-	var START_X1 = randomFromTo((RADIUS+1),CANVAS_SIZE);
-	var START_Y1 = randomFromTo((RADIUS+1),CANVAS_SIZE);
+	var START_X = randomFromTo(RADIUS,CANVAS_SIZE - RADIUS);// ball 1 green
+	var START_Y = randomFromTo(RADIUS,CANVAS_SIZE - RADIUS);// ball 1 green
+	var START_X1 = randomFromTo(RADIUS,CANVAS_SIZE - RADIUS);// ball 2 blue
+	var START_Y1 = randomFromTo(RADIUS,CANVAS_SIZE - RADIUS);// ball 2 blue
 	// the current location of our ball
-	var ball_x = START_X;
-	var ball_y = START_Y;
-	var ball1_x = START_X1;
-	var ball1_y = START_Y1;
-	// the movement increment for our ball, it's speed on each axis
-	var inc_x = Math.sin((randomFromTo(0,CANVAS_SIZE)))*20;
-	var inc_y = Math.cos((randomFromTo(0,CANVAS_SIZE)))*20;
+	var ball_x = START_X;//ball 1 green
+	var ball_y = START_Y;//ball 1 green
+	var ball1_x = START_X1;//ball 2 blue
+	var ball1_y = START_Y1;// ball 2 blue
+	// the movement increment for our balls, it's speed on each axis
+	var inc_x = (randomFromTo(0,CANVAS_SIZE))/20; //here the speed is not constant it varies from 0 to CANVAS_SIZE/20 for ball 1 green
+	var inc_y = (randomFromTo(0,CANVAS_SIZE))/20; //here the speed is not constant it varies from 0 to CANVAS_SIZE/20 for ball 1 green
 
-	var inc_x1 = Math.sin((randomFromTo(0,CANVAS_SIZE)))*20;
-	var inc_y1 = Math.cos((randomFromTo(0,CANVAS_SIZE)))*20;
+	var inc_x1 = (randomFromTo(0,CANVAS_SIZE))/20; //here the speed is not constant it varies from 0 to CANVAS_SIZE/20 for ball 2 blue
+	var inc_y1 = (randomFromTo(0,CANVAS_SIZE))/20; //here the speed is not constant it varies from 0 to CANVAS_SIZE/20 for ball 2 blue
 
 
 	var SIZE = 600;
+	
+	//the function that generate a random number between number from and number to
 	function randomFromTo(from, to){
 		   return Math.floor(Math.random() * (to - from + 1) + from);
 		}
@@ -40,6 +42,8 @@
 			// this just sets up our Javascript canvas to be drawn to
 			var canvas = document.getElementById("canvas");
 			var pen = canvas.getContext("2d");
+			
+			//declare the Image file
 			var img = new Image ();
 			img.src = 'images/N7.jpg';
 
@@ -47,8 +51,10 @@
 			// we clear the canvas, removing what has already been drawn
 			pen.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
+			
+			//this variable is resposible for the rotation of the background image
 			SIZE = (SIZE + 1) % 600;
-				  
+			//the function that draws the background image and rotates it	  
 			pen.save();
 			pen.translate(300, 100);
 			pen.rotate((Math.cos(SIZE*Math.PI/30))/4);
@@ -56,24 +62,17 @@
 			pen.restore();
 			
 
-			// then we draw the ball
-			pen.fillStyle = '#FD0';
-			pen.fillStyle = '#395a3d';
-			pen.strokeStyle = "#ffffff";
+			// then we draw the balls
+			//ball 1 (green)
+			pen.fillStyle = '#395a3d';//green
+			pen.strokeStyle = "#ffffff";//white
 			pen.beginPath();
 			pen.arc(ball_x, ball_y, RADIUS, 0, 2*Math.PI, false);
 			pen.stroke();
 			pen.fill();
-			pen.fillStyle = '#092a49';
-			/*
-			
-			pen.shadowColor = '#9d9d9d';
-			//pen.shadow.Blur = 20;
-			pen.shadowOffsetX = 5;
-			pen.shadowOffsetY = 5;
-			pen.closePath();
-			*/
-			pen.strokeStyle = "#ffffff";
+			// ball 2 (blue)
+			pen.fillStyle = '#092a49';//blue
+			pen.strokeStyle = "#ffffff";//white
 			pen.beginPath();
 			pen.arc(ball1_x, ball1_y, RADIUS, 0, 2*Math.PI, false);
 			pen.stroke();
@@ -81,6 +80,11 @@
 			
 	}
 
+	// the following function is used when u want to store some variable and the use the varible to be diplayed in the webpage I didn't really used it
+	// uncomment it if you want  to use it and uncomment the needed line in the function tick() 
+	
+	/*
+	
 	function updateDebug(){
 	  // update our HTML debugging elements
 	  $("#ball_x").text(ball_x);
@@ -90,24 +94,30 @@
 	  $("#canvas_width").text(CANVAS_SIZE);
 	  $("#canvas_height").text(CANVAS_SIZE);
 	}
-
+	
+	
 	// this function is called 40 times a second and has two jobs
 	// 1) to increment our board, that is, to move our ball or do other operations
 	// having to do with animation
 	// 2) to trigger the Canvas element to be redrawn by calling the draw() function
 	// above
 	//
+	
+	*/
+	
+	
 	function tick(){
 	  // we simply increment the position of the ball based on our initial speed
 
 	  // TODO: Can you change this logic to make the ball bounce off the sides of
 	  // the screen?
-	  ball_x += inc_x;
-	  ball_y += inc_y;
+	  ball_x += inc_x; //ball 1 motion
+	  ball_y += inc_y; //ball 1 motion
 	  
-	  ball1_x += inc_x1;
-	  ball1_y += inc_y1;
+	  ball1_x += inc_x1; // ball 2 motion
+	  ball1_y += inc_y1; // ball 2 motion
 	  
+	  // the following 4 if are to detect the edge and make the balls bounce off the edge
 	  if (ball_x <= RADIUS | ball_x >= CANVAS_SIZE - RADIUS )
 	  {inc_x = inc_x * (-1);
 	  }
@@ -121,20 +131,22 @@
 	  if(ball1_y <= RADIUS | ball1_y >= CANVAS_SIZE - RADIUS)
 	  {inc_y1 = inc_y1 *(-1);
 	  }
+	  
+	  // this the function that handles the collision and changes the direction of the balls after collision
 	  if ((Math.pow((ball_x-ball1_x),2)+Math.pow((ball_y-ball1_y),2)) <= 4*RADIUS*RADIUS)
 	  {
 		
-	  inc_x = inc_x * (-1) + inc_x1 *(-1);
+	  inc_x = inc_x * (-1) + inc_x1 *(-1); 
 	  inc_y = inc_y * (-1) + inc_y1 *(-1);
 	  inc_x1 = inc_x * (-1) + inc_x1 *(-1);
 	  inc_y1 = inc_y * (-1) + inc_y1 *(-1);
 	  
 	  }
 	  draw();
+		//uncomment the following line to use the  function updateDebug() as seen before
+	  //updateDebug();
 
-	  updateDebug();
-
-	  setTimeout("tick()", 10);
+	  setTimeout("tick()", 25);
 	}
 
 	// just resets our ball position to the start
@@ -144,11 +156,16 @@
 	}
 
 	$(function(){
-	  setTimeout("tick()", 10);
+	  setTimeout("tick()", 25);
 	});
 	</script>
 
 	<script type="text/javascript">
+	// this the script responsible of the particles all around the canvas
+	//just like many small balls
+	
+	
+	
 	var canvas, ctx;
 	var particles = [];
 	var NUM_PARTICLES = 600;
@@ -254,11 +271,15 @@
 	  
 	  </tr>
 	</tbody></table>
-
-	<p>
+<p><button onclick="reset()">Reset</button>
+	
 	</p>
 
-
+<p> Here is the solution for the Challenge 1,<br/>
+	I started resolving the challenge and added another<br/>
+	ball, a function of collision, and some animation...<br/>
+	</p>
+	
 
 	  
 
